@@ -197,6 +197,16 @@ export const getRecentPointEntries = async (limitCount) => {
     .map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
+export const getAllPointEntries = async () => {
+  // Note: We'd normally use limit() here, but keeping it simple for now and filtering client-side if needed
+  // or we can add limit to the query if we import it
+  const q = query(pointEntriesCollection, orderBy("awardedAt", "desc"));
+  const snapshot = await getDocs(q);
+  return snapshot.docs
+    .map((doc) => ({ id: doc.id, ...doc.data() }));
+};
+
+
 export const awardPointsBatch = async (students, event, points, adminEmail) => {
   const batch = writeBatch(db);
 

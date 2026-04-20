@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import AdminDashboard from "./pages/AdminDashboard";
+import AllEvents from "./pages/AllEvents";
 import AllPoints from "./pages/AllPoints";
 import AwardPoints from "./pages/AwardPoints";
 import CreateEvent from "./pages/CreateEvent";
@@ -78,6 +79,7 @@ const App = () => {
             <Route path="award" element={<AwardPoints />} />
             <Route path="places" element={<Places />} />
             <Route path="points" element={<AllPoints />} />
+            <Route path="all-events" element={<AllEvents />} />
           </Route>
         </Routes>
       </Router>
