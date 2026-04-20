@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Activity, Clock, Medal, Star, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import HouseCard from "../components/HouseCard";
 import {
   AGE_GROUP_LABELS,
   AGE_GROUPS,
