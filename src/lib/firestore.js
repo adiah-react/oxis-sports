@@ -15,17 +15,27 @@ import {
 import { db } from "./firebase";
 
 export const AGE_GROUPS = [
-  "lower-school",
-  "middle-school",
-  "upper-school",
-  "advanced",
+  // "lower-school",
+  // "middle-school",
+  // "upper-school",
+  // "advanced",
+  "early-years", // EY - G2
+  "lower-lower-school", // G3-G4
+  "upper-lower-school", // G6
+  "middle-school", // G8-G9
+  "upper-school", // G10-G13
 ];
 
 export const AGE_GROUP_LABELS = {
-  "lower-school": "Lower School",
-  "middle-school": "Middle School",
-  "upper-school": "Upper School",
-  advanced: "Advanced",
+  // "lower-school": "Lower School",
+  // "middle-school": "Middle School",
+  // "upper-school": "Upper School",
+  // advanced: "Advanced",
+  "early-years": "Early Years", // EY - G2
+  "lower-lower-school": "Lower Lower School", // G3-G4
+  "upper-lower-school": "Upper Lower School", // G6
+  "middle-school": "Middle School", // G8-G9
+  "upper-school": "Upper School", // G10-G13
 };
 
 export const GENDERS = ["male", "female"];
