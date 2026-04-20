@@ -14,6 +14,24 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 
+export const AGE_GROUPS = [
+  "lower-school",
+  "middle-school",
+  "upper-school",
+  "advanced",
+];
+
+export const AGE_GROUP_LABELS = {
+  "lower-school": "Lower School",
+  "middle-school": "Middle School",
+  "upper-school": "Upper School",
+  advanced: "Advanced",
+};
+
+export const GENDERS = ["male", "female"];
+
+export const EVENT_CATEGORIES = ["sports-day", "regular"];
+
 // --- Houses ---
 
 export const housesCollection = collection(db, "houses");

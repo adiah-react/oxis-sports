@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { AuthProvider } from "./context/AuthContext";
+import Leaderboard from "./pages/Leaderboard";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
             element={
               <>
                 <Navbar />
+                <Leaderboard />
               </>
             }
           />
