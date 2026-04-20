@@ -1,5 +1,6 @@
 import { AlertCircle, Edit2, Flag, Plus, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   addHouse,
   deleteHouse,
@@ -13,12 +14,16 @@ const ManageHouses = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+
   // Form state
   const [name, setName] = useState("");
   const [color, setColor] = useState("#3b82f6");
   const [iconEmoji, setIconEmoji] = useState("🏆");
   const [formError, setFormError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
+
   const fetchHouses = async () => {
     setLoading(true);
     try {
@@ -30,9 +35,11 @@ const ManageHouses = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchHouses();
   }, []);
+
   const handleOpenModal = (house) => {
     if (house) {
       setEditingId(house.id);
@@ -47,7 +54,9 @@ const ManageHouses = () => {
     }
     setFormError("");
     setIsModalOpen(true);
+    console.log("Should open");
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -130,7 +139,7 @@ const ManageHouses = () => {
             </button>
           )}
           <button
-            onClick={() => handleOpenModal()}
+            onClick={() => navigate("/admin/houses/create")}
             className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -169,7 +178,10 @@ const ManageHouses = () => {
                   </div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => handleOpenModal(house)}
+                      // onClick={() => handleOpenModal(house)}
+                      onClick={() =>
+                        navigate(`/admin/houses/${house.id}/edit/`)
+                      }
                       className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                       title="Edit"
                     >
@@ -211,7 +223,8 @@ const ManageHouses = () => {
                 defaults.
               </p>
               <button
-                onClick={() => handleOpenModal()}
+                // onClick={() => handleOpenModal()}
+                onClick={() => navigate("/admin/houses/create")}
                 className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
               >
                 <Plus className="h-4 w-4 mr-2" />

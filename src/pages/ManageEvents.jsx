@@ -1,5 +1,6 @@
 import { AlertCircle, Calendar, Edit2, Plus, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   addEvent,
   deleteEvent,
@@ -20,6 +21,7 @@ export const ManageEvents = () => {
   const [category, setCategory] = useState("regular");
   const [formError, setFormError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   const fetchEvents = async () => {
     setLoading(true);
     try {
@@ -127,7 +129,8 @@ export const ManageEvents = () => {
             {event.category === "sports-day" ? "Sports Day" : "Regular"}
           </span>
           <button
-            onClick={() => handleOpenModal(event)}
+            // onClick={() => handleOpenModal(event)}
+            onClick={() => navigate(`/admin/events/${event.id}/edit/`)}
             className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
           >
             <Edit2 className="w-4 h-4" />
@@ -156,7 +159,7 @@ export const ManageEvents = () => {
           </p>
         </div>
         <button
-          onClick={() => handleOpenModal()}
+          onClick={() => navigate("/admin/events/create")}
           className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -180,7 +183,7 @@ export const ManageEvents = () => {
                 Create your first event to start awarding points.
               </p>
               <button
-                onClick={() => handleOpenModal()}
+                onClick={() => navigate("/admin/events/create")}
                 className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
               >
                 <Plus className="h-4 w-4 mr-2" />

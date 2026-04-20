@@ -8,6 +8,7 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AGE_GROUPS,
   AGE_GROUP_LABELS,
@@ -35,6 +36,8 @@ const ManageStudents = () => {
   const [gender, setGender] = useState("male");
   const [formError, setFormError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -142,7 +145,8 @@ const ManageStudents = () => {
           </p>
         </div>
         <button
-          onClick={() => handleOpenModal()}
+          // onClick={() => handleOpenModal()}
+          onClick={() => navigate("/admin/students/create")}
           disabled={houses.length === 0}
           className={`inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors ${houses.length === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
         >
@@ -285,7 +289,9 @@ const ManageStudents = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <button
-                            onClick={() => handleOpenModal(student)}
+                            onClick={() =>
+                              navigate(`/admin/students/${student.id}/edit`)
+                            }
                             className="text-indigo-600 hover:text-indigo-900 mr-4"
                           >
                             <Edit2 className="h-4 w-4" />

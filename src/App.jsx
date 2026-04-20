@@ -5,6 +5,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import AdminDashboard from "./pages/AdminDashboard";
 import AwardPoints from "./pages/AwardPoints";
+import CreateEvent from "./pages/CreateEvent";
+import CreateHouse from "./pages/CreateHouse";
+import CreateStudent from "./pages/CreateStudent";
+import { HouseDetail } from "./pages/HouseDetail";
 import Leaderboard from "./pages/Leaderboard";
 import Login from "./pages/Login";
 import { ManageEvents } from "./pages/ManageEvents";
@@ -23,6 +27,15 @@ const App = () => {
               <>
                 <Navbar />
                 <Leaderboard />
+              </>
+            }
+          />
+          <Route
+            path="/house/:id"
+            element={
+              <>
+                <Navbar />
+                <HouseDetail />
               </>
             }
           />
@@ -47,8 +60,19 @@ const App = () => {
           >
             <Route index element={<AdminDashboard />} />
             <Route path="houses" element={<ManageHouses />} />
+            <Route path="houses/create" element={<CreateHouse />} />
+            <Route path="houses/:editingId/edit" element={<CreateHouse />} />
+
             <Route path="students" element={<ManageStudents />} />
+            <Route path="students/create" element={<CreateStudent />} />
+            <Route
+              path="students/:editingId/edit"
+              element={<CreateStudent />}
+            />
+
             <Route path="events" element={<ManageEvents />} />
+            <Route path="events/create" element={<CreateEvent />} />
+            <Route path="events/:editingId/edit" element={<CreateEvent />} />
             <Route path="award" element={<AwardPoints />} />
           </Route>
         </Routes>
