@@ -6,6 +6,7 @@ import {
   Home,
   LayoutDashboard,
   LogOut,
+  TrendingUp,
   Users,
 } from "lucide-react";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -28,6 +29,16 @@ export const AdminLayout = () => {
       name: "Manage Places",
       href: "/admin/places",
       icon: Activity,
+    },
+    {
+      name: "Show all students",
+      href: "/admin/points",
+      icon: TrendingUp,
+    },
+    {
+      name: 'Show all points',
+      href: "/admin/all-events",
+      icon: Calendar,
     },
     {
       name: "Manage Students",
