@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import AdminDashboard from "./pages/AdminDashboard";
+import AllPoints from "./pages/AllPoints";
 import AwardPoints from "./pages/AwardPoints";
 import CreateEvent from "./pages/CreateEvent";
 import CreateHouse from "./pages/CreateHouse";
@@ -76,6 +77,7 @@ const App = () => {
             <Route path="events/:editingId/edit" element={<CreateEvent />} />
             <Route path="award" element={<AwardPoints />} />
             <Route path="places" element={<Places />} />
+            <Route path="points" element={<AllPoints />} />
           </Route>
         </Routes>
       </Router>

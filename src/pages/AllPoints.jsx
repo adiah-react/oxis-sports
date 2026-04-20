@@ -1,21 +1,20 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Activity, Clock, Medal, Star, Trophy } from "lucide-react";
+import { Activity, Medal, Star, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import HouseCard from "../components/HouseCard";
 import {
-  AGE_GROUP_LABELS,
-  AGE_GROUPS,
-  subscribeToHouses,
-  subscribeToPointEntries,
-  subscribeToStudents,
+	AGE_GROUP_LABELS,
+	AGE_GROUPS,
+	subscribeToHouses,
+	subscribeToPointEntries,
+	subscribeToStudents,
 } from "../lib/firestore";
 
-const SPORTS_DAY_BONUS_POINTS = 0;
+const SPORTS_DAY_BONUS_POINTS = 50;
 const isValidTab = (tab) =>
   tab === "overall" || tab === "sports-day" || tab == "regular";
 
-const Leaderboard = () => {
+const AllPoints= () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [houses, setHouses] = useState([]);
   const [students, setStudents] = useState([]);
@@ -148,7 +147,7 @@ const Leaderboard = () => {
     })
     .filter((s) => s.points > 0)
     .sort((a, b) => b.points - a.points)
-    .slice(0, 5);
+    // .slice(0, 5);
 
   const recentEntries = pointEntries
     .filter((entry) => {
@@ -242,106 +241,8 @@ const Leaderboard = () => {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
-        {/* Bonus Points Banner for Overall Tab */}
-        <AnimatePresence mode="wait">
-          {activeTab === "overall" &&
-            (bestMaleSportsDay || bestFemaleSportsDay) && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: -20,
-                }}
-                className="mb-8 bg-gradient-to-r from-amber-400 to-amber-500 rounded-2xl p-6 shadow-lg text-amber-950 border border-amber-300"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <Medal className="w-6 h-6" />
-                  <h2 className="text-xl font-black">
-                    Sports Day Champions Bonus
-                  </h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {bestMaleSportsDay && (
-                    <div className="bg-white/40 rounded-xl p-4 backdrop-blur-sm">
-                      <div className="text-sm font-bold uppercase tracking-wider mb-1 opacity-80">
-                        Best Male Athlete
-                      </div>
-                      <div className="font-bold text-lg">
-                        {bestMaleSportsDay.name}
-                      </div>
-                      <div className="text-sm flex items-center gap-2 mt-1">
-                        <span className="bg-amber-950/10 px-2 py-0.5 rounded font-bold">
-                          +{SPORTS_DAY_BONUS_POINTS} pts
-                        </span>
-                        <span>
-                          for{" "}
-                          {
-                            houses.find(
-                              (h) => h.id === bestMaleSportsDay.houseId,
-                            )?.name
-                          }
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  {bestFemaleSportsDay && (
-                    <div className="bg-white/40 rounded-xl p-4 backdrop-blur-sm">
-                      <div className="text-sm font-bold uppercase tracking-wider mb-1 opacity-80">
-                        Best Female Athlete
-                      </div>
-                      <div className="font-bold text-lg">
-                        {bestFemaleSportsDay.name}
-                      </div>
-                      <div className="text-sm flex items-center gap-2 mt-1">
-                        <span className="bg-amber-950/10 px-2 py-0.5 rounded font-bold">
-                          +{SPORTS_DAY_BONUS_POINTS} pts
-                        </span>
-                        <span>
-                          for{" "}
-                          {
-                            houses.find(
-                              (h) => h.id === bestFemaleSportsDay.houseId,
-                            )?.name
-                          }
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )}
-        </AnimatePresence>
 
-        <div className="space-y-6 mb-16">
-          {houseStandings.map((house, index) => (
-            <HouseCard
-              key={`${house.id}-${activeTab}`} // Force re-render on tab change for animation
-              house={house}
-              points={house.totalPoints}
-              rank={index + 1}
-              maxPoints={maxPoints}
-            />
-          ))}
 
-          {houseStandings.length === 0 && (
-            <div className="bg-white rounded-2xl p-12 text-center shadow-sm border border-slate-200">
-              <Trophy className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-slate-900">
-                No houses found
-              </h3>
-              <p className="text-slate-500">
-                Admins need to set up houses first.
-              </p>
-            </div>
-          )}
-        </div>
 
         {/* Sports Day Specific Section */}
         <AnimatePresence mode="wait">
@@ -504,82 +405,11 @@ const Leaderboard = () => {
             </div>
           </div>
 
-          {/* Recent Activity */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="p-6 border-b border-slate-100 flex items-center gap-3">
-              <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
-                <Clock className="w-5 h-5" />
-              </div>
-              <h2 className="text-xl font-bold text-slate-900">
-                Recent Activity
-              </h2>
-            </div>
-            <div className="p-0">
-              {recentEntries.length > 0 ? (
-                <ul className="divide-y divide-slate-100">
-                  {recentEntries.map((entry) => {
-                    const house = houses.find((h) => h.id === entry.houseId);
-                    return (
-                      <li
-                        key={entry.id}
-                        className="p-4 hover:bg-slate-50 transition-colors"
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-start gap-3">
-                            <div
-                              className="w-8 h-8 rounded-full flex items-center justify-center text-sm mt-1 flex-shrink-0"
-                              style={{
-                                backgroundColor: `${house?.color}20`,
-                                color: house?.color,
-                              }}
-                            >
-                              {house?.iconEmoji}
-                            </div>
-                            <div>
-                              <div className="text-sm text-slate-900">
-                                <span className="font-medium">
-                                  {entry.studentName}
-                                </span>{" "}
-                                earned points for{" "}
-                                <span className="font-medium">
-                                  {entry.eventName}
-                                </span>
-                              </div>
-                              <div className="text-xs text-slate-500 mt-1 flex items-center gap-2">
-                                <span>
-                                  {entry.awardedAt?.toDate
-                                    ? new Date(
-                                        entry.awardedAt.toDate(),
-                                      ).toLocaleDateString()
-                                    : "Just now"}
-                                </span>
-                                {entry.eventCategory === "sports-day" && (
-                                  <span className="bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase">
-                                    Sports Day
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="font-bold text-green-600 bg-green-50 px-2 py-1 rounded text-sm">
-                            +{entry.points}
-                          </div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <div className="p-8 text-center text-slate-500">
-                  No recent activity in this category.
-                </div>
-              )}
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
   );
 };
 
-export default Leaderboard;
+export default AllPoints;

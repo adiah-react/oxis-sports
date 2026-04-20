@@ -15,6 +15,7 @@ export const HouseDetail = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalHousePoints, setTotalHousePoints] = useState(0);
+
   useEffect(() => {
     const fetchHouseData = async () => {
       if (!id) return;
