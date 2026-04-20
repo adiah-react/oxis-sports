@@ -149,6 +149,8 @@ export const addEvent = async (event) => {
   });
 };
 
+
+
 export const updateEvent = async (id, data) => {
   const docRef = doc(db, "events", id);
   return await updateDoc(docRef, data);
@@ -162,6 +164,20 @@ export const deleteEvent = async (id) => {
 // --- Point Entries ---
 
 export const pointEntriesCollection = collection(db, "pointEntries");
+
+export const addPoints = async (student, event, points, adminEmail) => {
+  return await addDoc(pointEntriesCollection, {
+      studentId: student.id,
+      studentName: student.name,
+      houseId: student.houseId,
+      eventId: event.id,
+      eventName: event.name,
+      eventCategory: event.category,
+      points: points,
+      awardedAt: serverTimestamp(),
+      awardedBy: adminEmail,
+  })
+}
 
 export const subscribeToPointEntries = (callback) => {
   const q = query(pointEntriesCollection, orderBy("awardedAt", "desc"));

@@ -25,6 +25,11 @@ export const AdminLayout = () => {
       icon: Award,
     },
     {
+      name: "Manage Places",
+      href: "/admin/places",
+      icon: Activity,
+    },
+    {
       name: "Manage Students",
       href: "/admin/students",
       icon: Users,

@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import { ManageEvents } from "./pages/ManageEvents";
 import ManageHouses from "./pages/ManageHouses";
 import ManageStudents from "./pages/ManageStudents";
+import Places from "./pages/Places";
 
 const App = () => {
   return (
@@ -74,6 +75,7 @@ const App = () => {
             <Route path="events/create" element={<CreateEvent />} />
             <Route path="events/:editingId/edit" element={<CreateEvent />} />
             <Route path="award" element={<AwardPoints />} />
+            <Route path="places" element={<Places />} />
           </Route>
         </Routes>
       </Router>
