@@ -191,7 +191,7 @@ const AdminDashboard = () => {
                 Recent Point Awards
               </h2>
               <Link
-                to="/admin/award"
+                to="/admin/all-events"
                 className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
               >
                 View All
